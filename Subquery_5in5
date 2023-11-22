@@ -1,0 +1,42 @@
+-- Script to find the top five highest spending customers in each of the five highest spending countries
+SELECT * FROM (
+-- Start of sub-query
+-- Finding the customers total spend
+SELECT	A.customer_id,
+		A.first_name AS first_name,
+		A.last_name AS last_name,
+		D.country,
+		SUM(E.amount) AS total_paid,
+-- the following ranks the customer's total payments made with others in the same country
+		row_number() OVER(PARTITION BY D.country ORDER BY SUM(E.amount) DESC) AS country_rank
+
+-- Join the customer information (Table A) to the payment information (E)
+FROM customer A
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_id = C.city_id
+INNER JOIN country D ON C.country_id = D.country_id
+INNER JOIN payment E ON A.customer_id = E.customer_id
+
+-- Clause for selection to top five countries
+WHERE D.country IN(
+-- Join the customer (Table A) to the country (D) , via address (B), city (C)
+	SELECT D.country
+	FROM customer A
+	INNER JOIN address B ON A.address_id = B.address_id
+	INNER JOIN city C ON B.city_id = C.city_id
+	INNER JOIN country D ON C.country_id = D.country_id
+-- Join the customer (A) to the payment (E)
+	INNER JOIN payment E ON A.customer_id = E.customer_id
+
+-- Order the coutries by total income generated and output the top 5
+	GROUP BY D.country
+	ORDER BY SUM(E.amount) DESC
+	LIMIT 5
+	)
+
+-- Output the customers from the selected countries
+-- Limited to those that are ranked in the top five for spending in each country
+-- Order the customers by country (alphabetical), then by decreasing customer spending	
+GROUP BY	D.country, A.customer_id, A.first_name, A.last_name
+ORDER BY 	D.country, SUM(E.amount) DESC) ranks
+WHERE country_rank <= 5
