@@ -1,0 +1,27 @@
+-- Script to find the number and income of rentals by MPAA rating
+SELECT
+-- Age rating
+		A.rating,
+-- Total rentals made
+		count(A.rating) AS rentals_made,
+-- Gross rental income
+		SUM(D.amount) AS total_rentaL_income,
+-- Average income per rental made
+		ROUND(AVG(D.amount),2) AS average_rentaL_income
+
+-- Link films (including rating) (table A) to payments received (D), via inventory (B) and rental (C)
+FROM film A
+INNER JOIN inventory B ON A.film_id = B.film_id
+INNER JOIN rental C ON B.inventory_id = C.inventory_id
+INNER JOIN payment D ON C.rental_id = D.rental_id
+
+-- Group into MPAA ratings
+GROUP BY A.rating
+-- Assign MPAA ratings a value and order from least to highest age restriction
+ORDER BY CASE
+	WHEN A.rating = 'G' 		THEN 1
+	WHEN A.rating = 'PG' 		THEN 2
+	WHEN A.rating = 'PG-13' 	THEN 3
+	WHEN A.rating = 'R' 		THEN 4
+	WHEN A.rating = 'NC-17' 	THEN 5
+	END ASC
