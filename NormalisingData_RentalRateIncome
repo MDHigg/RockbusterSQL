@@ -1,0 +1,26 @@
+'-- Script to find income data by the rental charge rate
+SELECT
+-- Cost of rental
+		A.rental_rate,
+-- Income generated
+		SUM(D.amount) as income,
+-- Inventory available to rent
+		COUNT(DISTINCT B.inventory_id) AS inventory,
+-- Titles avaialbe in catalogue
+		COUNT(DISTINCT A.film_id) AS films,
+-- Average income per available stock
+		ROUND(SUM(D.amount)/COUNT(DISTINCT B.inventory_id),2) AS income_per_inventory,
+-- Total rentals made
+		COUNT(DISTINCT C.rental_id) AS rentals,
+-- Average income per rental made
+		ROUND(SUM(D.amount)/COUNT(DISTINCT C.rental_id),2) AS income_per_rental
+
+-- Join the film (Talbe A) to the payment infomration (D), via inventory (B) and rentals (C)
+FROM film A
+INNER JOIN inventory B ON A.film_id = B.film_id
+INNER JOIN rental C ON B.inventory_id = C.inventory_id
+INNER JOIN payment D ON C.rental_id = D.rental_id
+
+-- Output by rental rate from least to highest charge
+GROUP BY A.rental_rate
+ORDER BY A.rental_rate
