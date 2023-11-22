@@ -1,0 +1,30 @@
+-- Script to find various income  statitics by country
+SELECT 	D.country,
+		-- number of customers
+		count(DISTINCT A.customer_id) AS customers,
+		-- total rentals made
+		count(E.rental_id) AS rental_count,
+		-- average number of rental per customer
+		round((cast(count(E.rental_id) as DECIMAL))/count(DISTINCT A.customer_id),2) AS rentals_per_customer,
+		-- average spent on each rental
+		round(avg(G.rental_rate),2) AS avg_rental_rate,
+		-- Total (net) income
+		SUM(H.amount) AS total_income,
+		-- Average spent by each customer
+		round(SUM(H.amount)/count(DISTINCT A.customer_id),2) AS income_per_customer
+
+-- Joins link the customer (table A) to their country (D) via Address (B) and city (C).
+FROM customer A
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_id = C.city_id
+INNER JOIN country D on C.country_id = D.country_id
+-- Joins link the customer (A) to the film (G) made via rentals (E) and inventory (F))
+INNER JOIN rental E ON A.customer_id = E.customer_id
+INNER JOIN inventory F ON E.inventory_id = F.inventory_id
+INNER JOIN film G ON F.film_id = G.film_id
+-- Joins link the customer (A) to the payments (H)
+INNER JOIN payment H ON E.rental_id = H.rental_id
+
+-- Output by country, ordered by decreasing net income
+GROUP BY D.country
+ORDER BY total_income DESC
