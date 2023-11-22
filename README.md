@@ -22,4 +22,4 @@ Language
 Staff
 Store
 ## Visualizations
-Visualizations were created in Tableau. The link to the storyboard can be found here: [Rockbuster Visuals](https://public.tableau.com/app/profile/michael.higgins7794/viz/RockbusterVideos/RockbusterStealthVisualisations)
+Visualizations were created in Tableau. The link to the storyboard can be found here: [Rockbuster Visuals](https://public.tableau.com/app/profile/michael.higgins7794/viz/RockbusterVideos/RockbusterStealthVisualisations?:embed=yes&:tabs=no)
