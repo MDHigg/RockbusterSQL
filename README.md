@@ -23,6 +23,3 @@ Staff
 Store
 ## Visualizations
 Visualizations were created in Tableau. The link to the storyboard can be found here: <a href="https://public.tableau.com/app/profile/michael.higgins7794/viz/RockbusterVideos/RockbusterStealthVisualisations" target="_blank">Rockbuster Visualisations</a>
-<a href="https://www.geeksforgeeks.org/" 
-           target="_blank">here 
-        </a> to visit GeeksForGeeks website.
