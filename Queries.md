@@ -1,4 +1,4 @@
-## **Exemplars of Queries Used**
+## **Exemples of Queries Used**
 
 ### Initial Analysis Statistics
 #### Query to find the key Quantative overview data
