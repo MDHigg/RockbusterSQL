@@ -6,20 +6,33 @@ Our collaboration with Rockbusters Business Intelligence team will assist in the
 The data was provided by Rockbuster in the Project Brief. The database on contained infomration in the following tables:
 ### Fact Tables
 Payment
+
 Rental
 ### Dimension Tables
 Actor
+
 Address
+
 Category
+
 City
+
 Country
+
 Customer
+
 Fim
+
 Film Actor
+
 Film Category
+
 Inventory
+
 Language
+
 Staff
+
 Store
 ## Visualizations
 Visualizations were created in Tableau. The link to the storyboard can be found here: <a href="https://public.tableau.com/app/profile/michael.higgins7794/viz/RockbusterVideos/RockbusterStealthVisualisations" target="_blank">Rockbuster Visualisations</a>
